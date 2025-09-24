@@ -4,6 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
 
+/*
+ * Class: ThemeManager:
+ * Description: This class is used for the theme manager of the Android application, this allows for
+ * themes to be saved and to be set to light or dark theme. This class also allows to receive and GET
+ * the saved theme and the theme selected previously. We are able to switch between dark or light
+ * mode, you can also select the SYSTEM theme which means when the phone is in dark mode it will grab
+ * the dark theme and when it's in light mode it will grab light mode for the application
+ */
+
 public class ThemeManager {
     private static final String PREF_NAME = "user_session";
     private static final String THEME_PREF = "app_theme";
