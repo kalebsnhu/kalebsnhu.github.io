@@ -17,6 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+/*
+ * Class: ForgottenPasswordFragment
+ * Description: This class allows for forgotten password prompt and verifies the password if needed and notifies
+ * user of the choice to reset the password depending on the security question.
+*/
+
 public class ForgottenPasswordFragment extends Fragment {
 
     private TextView tvSecurityQuestion;
@@ -28,6 +34,15 @@ public class ForgottenPasswordFragment extends Fragment {
 
     private String currentUsername;
     private boolean questionRetrieved = false;
+
+    /*
+    * onCreateView
+    * @params()
+        *layoutinflater inflater
+        *viewgroup container
+        *bundle savedInstanceState
+    * Description: Shows the view for forgotten password and verifies the view depending on listeners and username setup.
+    */
 
     @Nullable
     @Override
@@ -42,6 +57,13 @@ public class ForgottenPasswordFragment extends Fragment {
 
         return view;
     }
+
+    /*
+    * initializeViews
+    * @params()
+        *view view
+    * Description: Initialize the views for forgotten password such as security question with the supplied username and allows for new password.
+    */
 
     private void initializeViews(View view) {
         tvSecurityQuestion = view.findViewById(R.id.tvSecurityQuestion);
@@ -61,11 +83,21 @@ public class ForgottenPasswordFragment extends Fragment {
         btnBackToLogin = view.findViewById(R.id.btnBackToLogin);
     }
 
+    /*
+    * setupClickListeners
+    * Description: Sets up listeners for fogotten password such as security question and password reset
+    */
+
     private void setupClickListeners() {
         btnGetQuestion.setOnClickListener(v -> getSecurityQuestion());
         btnResetPassword.setOnClickListener(v -> attemptPasswordReset());
         btnBackToLogin.setOnClickListener(v -> navigateBackToLogin());
     }
+
+    /*
+    * showUsernameStep
+    * Description: Shows username setup and security question, it creates the visibility and shows the UI
+    */
 
     private void showUsernameStep() {
         usernameLayout.setVisibility(View.VISIBLE);
@@ -78,6 +110,12 @@ public class ForgottenPasswordFragment extends Fragment {
         btnResetPassword.setVisibility(View.GONE);
     }
 
+
+    /*
+    * showRecoveryStep
+    * Description: Shows recovery state, creates it visible and removes the username layout and get question
+    */
+
     private void showRecoveryStep() {
         usernameLayout.setVisibility(View.GONE);
         btnGetQuestion.setVisibility(View.GONE);
@@ -88,6 +126,11 @@ public class ForgottenPasswordFragment extends Fragment {
         confirmPasswordLayout.setVisibility(View.VISIBLE);
         btnResetPassword.setVisibility(View.VISIBLE);
     }
+
+    /*
+    * getSecurityQuestion
+    * Description: Gets security question for the username provided, allows for forgotten password prompt and verifies password for username
+    */
 
     private void getSecurityQuestion() {
         clearErrors();
@@ -115,6 +158,11 @@ public class ForgottenPasswordFragment extends Fragment {
         showRecoveryStep();
         etSecurityAnswer.requestFocus();
     }
+
+    /*
+    * attemptPasswordReset
+    * Description: Attempts to send the security question and verifies the prompt sent back is correct.
+    */
 
     private void attemptPasswordReset() {
         clearErrors();
@@ -145,6 +193,15 @@ public class ForgottenPasswordFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    /*
+    * validateResetInputs
+    * @params()
+        *string securityAnswer
+        *string newPassword
+        *string confirmPassword
+    * Description: Validates inputs, verifies passwords match and creates a new password if the correct security answer is provided.
+    */
 
     private boolean validateResetInputs(String securityAnswer, String newPassword, String confirmPassword) {
         boolean isValid = true;
@@ -185,9 +242,21 @@ public class ForgottenPasswordFragment extends Fragment {
         return isValid;
     }
 
+    /*
+    * getText
+    * @params()
+        *textinputedittext editText
+    * Description: Receives the text for the forgotten password prompt
+    */
+
     private String getText(TextInputEditText editText) {
         return editText.getText() != null ? editText.getText().toString().trim() : "";
     }
+
+    /*
+    * clearErrors
+    * Description: Clears errors for username, security answer, new password, and confirms
+    */
 
     private void clearErrors() {
         usernameLayout.setError(null);
@@ -195,6 +264,11 @@ public class ForgottenPasswordFragment extends Fragment {
         newPasswordLayout.setError(null);
         confirmPasswordLayout.setError(null);
     }
+
+    /*
+    * navigateBackToLogin
+    * Description: Sends user back to the login screen
+    */
 
     private void navigateBackToLogin() {
         getParentFragmentManager().popBackStack();
