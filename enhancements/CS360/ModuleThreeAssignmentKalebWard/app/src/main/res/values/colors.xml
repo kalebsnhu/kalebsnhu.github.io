@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme colors (these will be overridden in values-night for dark theme) -->
+    <color name="background_color">#FFFFFF</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="header_background">#0D47A1</color>
+    <color name="header_text">#FFFFFF</color>
+    <color name="quantity_control_background">#F5F5F5</color>
+    <color name="future_date_background">#EEEEEE</color>
+    <color name="future_date_text">#757575</color>
+
+    <!-- Colors that stay the same in both themes -->
+    <color name="purple_200">#64B5F6</color>
+    <color name="purple_500">#1976D2</color>
+    <color name="purple_700">#0D47A1</color>
+    <color name="teal_200">#4FC3F7</color>
+    <color name="teal_700">#0277BD</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent">#4FC3F7</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="status_text">#F44336</color>
+    <color name="status_success">#4CAF50</color>
+    <color name="future_date_accent">#1976D2</color>
+
+    <!-- Theme-specific colors for light mode -->
+    <color name="background_color_light">#FFFFFF</color>
+    <color name="text_color_light">#000000</color>
+    <color name="text_color_secondary_light">#666666</color>
+    <color name="card_background_light">#FAFAFA</color>
+    <color name="colorPrimary">#1976D2</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#4FC3F7</color>
+    <color name="colorPrimary_dark">#64B5F6</color>
+    <color name="colorPrimaryDark_dark">#0D47A1</color>
+    <color name="colorAccent_dark">#4FC3F7</color>
+    <color name="background_color_dark">#121212</color>
+    <color name="text_color_dark">#FFFFFF</color>
+    <color name="text_color_secondary_dark">#AAAAAA</color>
+    <color name="card_background_dark">#1E1E1E</color>
+
+    <!-- DatePicker light theme colors -->
+    <color name="dark_background">#FFFFFF</color>
+    <color name="dark_text_primary">#212121</color>
+    <color name="dark_text_secondary">#757575</color>
+    <color name="dark_button_text">#1976D2</color>
+</resources>

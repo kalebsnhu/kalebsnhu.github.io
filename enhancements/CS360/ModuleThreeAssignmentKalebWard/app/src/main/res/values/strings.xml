@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">InventoryApp - Kaleb Ward</string>
+
+    <!-- Login Screen -->
+    <string name="app_logo_description">App Logo</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create New Account</string>
+    <string name="logout">Logout</string>
+    <string name="logged_in_as">Logged in as: %1$s</string>
+    <string name="logout_success">Logged out successfully</string>
+    <string name="login_success">Login successful</string>
+    <string name="account_created">Account created successfully</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_username_too_short">Username must be at least 3 characters</string>
+    <string name="error_password_too_short">Password must be at least 4 characters</string>
+    <string name="error_username_exists">Username already exists</string>
+    <string name="error_invalid_credentials">Invalid username or password</string>
+    <string name="error_user_not_logged_in">User not logged in</string>
+
+    <!-- Data Display Screen -->
+    <string name="data_grid_title">Data:</string>
+    <string name="column_1_header">Name</string>
+    <string name="column_2_header">Quantity</string>
+    <string name="column_3_header">Date</string>
+    <string name="action_header">Action</string>
+    <string name="add_data">Add Data</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="update">Update</string>
+    <string name="item_added">Item added successfully</string>
+    <string name="item_updated">Item updated successfully</string>
+    <string name="item_deleted">Item deleted successfully</string>
+    <string name="error_adding_item">Error adding item</string>
+    <string name="error_updating_item">Error updating item</string>
+    <string name="error_deleting_item">Error deleting item</string>
+    <string name="error_item_not_in_database">Item not found in database</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete "%1$s"?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Add Data Dialog -->
+    <string name="add_new_item">Add New Item</string>
+    <string name="field_1_hint">Name</string>
+    <string name="field_2_hint">Quantity</string>
+    <string name="field_3_hint">Date</string>
+    <string name="save">Save</string>
+
+    <!-- SMS Notification Screen -->
+    <string name="notification_settings">Settings:</string>
+    <string name="notification_description">Enable SMS notifications to receive alerts about inventory items with low quantities.</string>
+    <string name="notification_icon_description">Notification Icon</string>
+    <string name="permission_required">SMS permission is required for notifications</string>
+    <string name="permission_granted">SMS permission granted</string>
+    <string name="permission_denied">SMS permission denied</string>
+    <string name="request_permission">Request SMS Permission</string>
+    <string name="notification_preferences">Notification Preferences</string>
+    <string name="enable_notifications">Enable SMS Notifications</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="settings_saved">Settings saved successfully</string>
+    <string name="error_saving_settings">Error saving settings</string>
+    <string name="back_to_inventory">Back to Inventory</string>
+    <string name="permission_required_to_enable">SMS permission is required to enable notifications</string>
+    <string name="enter_phone_number">Please enter a phone number</string>
+    <string name="sms_notification_sent">SMS notification sent</string>
+    <string name="error_sending_sms">Error sending SMS</string>
+    <string name="threshold_label">Low Inventory Threshold</string>
+    <string name="threshold_value">Notify when quantity is %1$d or less</string>
+    <string name="test_notification_message">This is a test notification. You will receive alerts when inventory items drop to %1$d or below.</string>
+    <string name="low_inventory_alert">Low inventory alert (items with quantity ≤ %1$d)</string>
+
+    <!-- Accessibility Strings -->
+    <string name="inventory_items_list">Inventory items list</string>
+    <string name="empty_inventory_list">Empty inventory list. No items to display.</string>
+    <string name="inventory_items_count">Inventory list with %1$d items</string>
+    <string name="item_name_accessibility">Item name: %1$s</string>
+    <string name="item_quantity_accessibility">Quantity: %1$s</string>
+    <string name="item_date_accessibility">Date: %1$s</string>
+    <string name="delete_item_accessibility">Delete item %1$s</string>
+    <string name="edit_item_accessibility">Edit item %1$s</string>
+    <string name="item_row_accessibility">Item: %1$s, Quantity: %2$s, Date: %3$s</string>
+
+    <string name="future_date">FUTURE DATE</string>
+    <string name="future_date_accessibility">This is a future dated item.</string>
+    <string name="increase_quantity">Increase Quantity</string>
+    <string name="decrease_quantity">Decrease Quantity</string>
+    <string name="quantity_updated">Quantity Updated</string>
+    <string name="increase_quantity_accessibility">Increase quantity of %1$s</string>
+    <string name="decrease_quantity_accessibility">Decrease quantity of %1$s</string>
+</resources>

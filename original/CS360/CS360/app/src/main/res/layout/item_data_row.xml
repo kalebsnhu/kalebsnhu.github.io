@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:importantForAccessibility="yes">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Future date indicator - initially hidden -->
+        <TextView
+            android:id="@+id/tvFutureDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/future_date_accent"
+            android:textColor="@color/white"
+            android:text="@string/future_date"
+            android:padding="2dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/itemContentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvColumn1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/primary_text"
+                android:text="Item 1"
+                android:focusable="true"
+                android:importantForAccessibility="yes" />
+
+            <TextView
+                android:id="@+id/tvColumn2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/primary_text"
+                android:text="Item 2"
+                android:focusable="true"
+                android:importantForAccessibility="yes" />
+
+            <TextView
+                android:id="@+id/tvColumn3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/primary_text"
+                android:text="Item 3"
+                android:focusable="true"
+                android:importantForAccessibility="yes" />
+
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_item"
+                android:src="@android:drawable/ic_menu_edit"
+                android:importantForAccessibility="yes" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_item"
+                android:src="@android:drawable/ic_menu_delete"
+                android:importantForAccessibility="yes" />
+        </LinearLayout>
+
+        <!-- Quantity adjustment controls -->
+        <LinearLayout
+            android:id="@+id/quantityControlsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:background="@color/quantity_control_background">
+
+            <Button
+                android:id="@+id/btnDecreaseQuantity"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:text="-"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:padding="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginEnd="4dp"
+                app:cornerRadius="12dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:contentDescription="@string/decrease_quantity" />
+
+            <Button
+                android:id="@+id/btnIncreaseQuantity"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:text="+"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:padding="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="12dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:contentDescription="@string/increase_quantity" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvQuantityUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity_updated"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                android:textColor="@color/status_success"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
