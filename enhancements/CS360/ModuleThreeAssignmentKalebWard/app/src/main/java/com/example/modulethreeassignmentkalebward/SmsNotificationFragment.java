@@ -24,6 +24,12 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 
+/*
+ * Class: SmsNotificationFragment:
+ * Description: This class is used for the SMS notifications, this has been changed from notifications to settings but
+ * it was originally for SMS notifications. You can now swap between themes and chose either SYSTEM, dark, or light mode.
+ */
+
 public class SmsNotificationFragment extends Fragment {
 
     private TextView tvPermissionStatus;
@@ -54,6 +60,17 @@ public class SmsNotificationFragment extends Fragment {
     private static final String THEME_DARK = "dark";
     private static final String THEME_SYSTEM = "system";
 
+    /*
+    * View onCreateView:
+    * @params():
+        * @LayoutInflater inflater
+        * @ViewGroup container
+        * @Bundle savedInstanceState
+    * Description: This creates the views that initialize the themes and loads the theme settings depending on what
+    * is previously selected, it can be changed between SYSTEM, dark, and light themes and it also reads the theme
+    * selected so the theme is consistent between settings and what is previously selected.
+    */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,6 +94,11 @@ public class SmsNotificationFragment extends Fragment {
 
         return view;
     }
+
+    /*
+    * initializeViews:
+    * Description: Initalizes the views for themes, SMS settings, and phone number previously added.
+    */
 
     private void initializeViews(View view) {
         
@@ -102,6 +124,12 @@ public class SmsNotificationFragment extends Fragment {
         });
     }
 
+    /*
+    * setupThemeListeners:
+    * Description: Setup theme listeners so we can verify what themes are saved and chosen 
+    * previously, it will apply themes when it's saved or chosen.
+    */
+
     private void setupThemeListeners() {
         radioGroupTheme.setOnCheckedChangeListener((group, checkedId) -> {
             String selectedTheme = getSelectedTheme();
@@ -109,6 +137,12 @@ public class SmsNotificationFragment extends Fragment {
             applyThemeChange(selectedTheme);
         });
     }
+
+    /*
+    * setupClickListeners:
+    * Description: Setup listeners for clicking when changing SMS permissions and saving permissions
+    * when changed. It will focus on the chosen selection so the user can preference as needed.
+    */
 
     private void setupClickListeners() {
         btnRequestPermission.setOnClickListener(v -> requestSmsPermission());
@@ -124,7 +158,13 @@ public class SmsNotificationFragment extends Fragment {
         });
     }
 
-    private void loadThemeSettings() {
+    /*
+    * setupClickListeners:
+    * Description: Sets up listeners to verify clicks clicked within the application, it will load the
+    * user profile as needed and the theme that is saved previously.
+    */
+
+    private void setupClickListeners() {
         if (userId != -1) {
             DatabaseHelper.UserProfile profile = databaseHelper.getUserProfile(userId);
             if (profile != null && profile.themePreference != null) {
@@ -138,6 +178,11 @@ public class SmsNotificationFragment extends Fragment {
         setThemeRadioButton(savedTheme);
     }
 
+    /*
+    * setThemeRadioButton:
+    * Description: This is the settings for the themes, you can chose between DARK, SYSTEM, or LIGHT which is the default.
+    */
+    
     private void setThemeRadioButton(String theme) {
         switch (theme) {
             case THEME_DARK:
@@ -152,15 +197,31 @@ public class SmsNotificationFragment extends Fragment {
         }
     }
 
+    /*
+    * getSelectedTheme:
+    * Description: Gets the selected theme and verifying what theme is selected.
+    */
+
     private String getSelectedTheme() {
         if (rbDark.isChecked()) return THEME_DARK;
         if (rbSystem.isChecked()) return THEME_SYSTEM;
         return THEME_LIGHT;
     }
 
+    /*
+    * applyThemeChange:
+    * Description: Applies selected theme and applies it to the application.
+    */
+
     private void applyThemeChange(String theme) {
         ThemeManager.saveTheme(getContext(), theme);
     }
+
+    /*
+    * saveThemePreference:
+    * Description: Saves theme preference, sets the string as app_theme DARK/SYSTEM/LIGHT depending on
+    * what is chosen previously, it grabs from the userprofile.
+    */
 
     private void saveThemePreference(String theme) {
         if (userId != -1) {
@@ -171,6 +232,12 @@ public class SmsNotificationFragment extends Fragment {
         editor.putString("app_theme", theme);
         editor.apply();
     }
+
+    /*
+    * loadNotificationSettings:
+    * Description: Loads the notification settings, verifies settings previously set up, it sets the values set
+    * to the application previously such as phone number.
+    */
 
     private void loadNotificationSettings() {
         if (userId != -1) {
@@ -189,6 +256,11 @@ public class SmsNotificationFragment extends Fragment {
         }
     }
 
+    /*
+    * updatePermissionStatus:
+    * Description: Updates permission status depending on whether or not access has been allowed
+    */
+
     private void updatePermissionStatus() {
         if (hasSmsPermission()) {
             tvPermissionStatus.setText("SMS permission granted");
@@ -206,14 +278,34 @@ public class SmsNotificationFragment extends Fragment {
         }
     }
 
+    /*
+    * hasSmsPermission:
+    * Description: Provides a boolean on whether or not SMS permission has been granted
+    */
+
     private boolean hasSmsPermission() {
         return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
+    /*
+    * requestSmsPermission:
+    * Description: Requests permissions for SMS notifications and verifying with the user if they want to grant.
+    */
+
     private void requestSmsPermission() {
         requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_REQUEST_CODE);
     }
+
+    /*
+    * requestSmsPermission:
+    * @params()
+        *int requestCode
+        *string permissions
+        *int grantResults
+    * Description: It requests permissions and sends it back to the user for verification, it allows for SMS permission and notifies
+    * whether or not the user has SMS permission. 
+    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -229,6 +321,11 @@ public class SmsNotificationFragment extends Fragment {
         }
     }
 
+    /*
+    * saveAllSettings:
+    * Description: Saves all settings such as notification settings and theme perferences.
+    */
+
     private void saveAllSettings() {
         
         String selectedTheme = getSelectedTheme();
@@ -237,6 +334,11 @@ public class SmsNotificationFragment extends Fragment {
         
         saveNotificationSettings();
     }
+
+    /*
+    * saveNotificationSettings:
+    * Description: Saves notification settings and provides whether or not the user has provided access.
+    */
 
     private void saveNotificationSettings() {
         if (userId == -1) {
