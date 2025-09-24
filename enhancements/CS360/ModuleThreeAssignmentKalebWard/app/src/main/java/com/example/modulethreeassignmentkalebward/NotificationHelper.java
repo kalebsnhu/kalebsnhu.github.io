@@ -9,6 +9,12 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+/*
+ * Class: NotificationHelper
+ * Description: This helper allows for various notification settings such as SMS permissions for notifications, notifies user
+ * if a phone number is incorrect or invalid and whether or not SMS permissions has been granted.
+ */
+
 public class NotificationHelper {
 
     private static final String TAG = "NotificationHelper";
@@ -18,10 +24,23 @@ public class NotificationHelper {
         this.context = context;
     }
 
+    /*
+    * hasSmsPermission
+    * Description: Verifies whether or not user has granted SMS permission
+    */
+
     public boolean hasSmsPermission() {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS)
                 == PackageManager.PERMISSION_GRANTED;
     }
+
+    /*
+    * sendSmsNotification
+    * @params()
+        *string phoneNumber
+        *string message
+    *Description: When SMS permission is granted it allows for SMS notifications, granted that the SMS number is valid.
+    */
 
     public boolean sendSmsNotification(String phoneNumber, String message) {
         
@@ -58,6 +77,14 @@ public class NotificationHelper {
             return false;
         }
     }
+
+    /*
+    * formatLowInventoryMessage
+    * @params()
+        *string items
+        *int threshold
+    Description: Formats lowered inventory message, verifies it's correct and appends and returns a string depending on the inventory alert.
+    */
 
     public String formatLowInventoryMessage(String[] items, int threshold) {
         if (items == null || items.length == 0) {
