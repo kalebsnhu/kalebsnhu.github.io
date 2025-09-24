@@ -159,12 +159,12 @@ public class SmsNotificationFragment extends Fragment {
     }
 
     /*
-    * setupClickListeners:
-    * Description: Sets up listeners to verify clicks clicked within the application, it will load the
-    * user profile as needed and the theme that is saved previously.
-    */
+     * loadThemeSettings:
+     * Description: Sets up listeners to verify clicks clicked within the application, it will load the
+     * user profile as needed and the theme that is saved previously.
+     */
 
-    private void setupClickListeners() {
+    private void loadThemeSettings() {
         if (userId != -1) {
             DatabaseHelper.UserProfile profile = databaseHelper.getUserProfile(userId);
             if (profile != null && profile.themePreference != null) {
@@ -173,7 +173,7 @@ public class SmsNotificationFragment extends Fragment {
             }
         }
 
-        
+        // Default to saved theme preference
         String savedTheme = preferences.getString(THEME_PREF, THEME_LIGHT);
         setThemeRadioButton(savedTheme);
     }

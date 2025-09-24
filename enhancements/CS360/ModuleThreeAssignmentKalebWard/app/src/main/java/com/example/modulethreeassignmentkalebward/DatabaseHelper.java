@@ -286,13 +286,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (cursor != null && cursor.moveToFirst()) {
                 UserProfile profile = new UserProfile();
                 profile.userId = userId;
-                profile.username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
-                profile.displayName = cursor.getString(cursor.getColumnIndex(COLUMN_DISPLAY_NAME));
-                profile.email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
-                profile.securityQuestion = cursor.getString(cursor.getColumnIndex(COLUMN_SECURITY_QUESTION));
-                profile.themePreference = cursor.getString(cursor.getColumnIndex(COLUMN_THEME_PREFERENCE));
-                profile.createdDate = cursor.getString(cursor.getColumnIndex(COLUMN_CREATED_DATE));
-                profile.lastLogin = cursor.getString(cursor.getColumnIndex(COLUMN_LAST_LOGIN));
+
+                // Check each column index before using it
+                int usernameIndex = cursor.getColumnIndex(COLUMN_USERNAME);
+                if (usernameIndex != -1) {
+                    profile.username = cursor.getString(usernameIndex);
+                }
+
+                int displayNameIndex = cursor.getColumnIndex(COLUMN_DISPLAY_NAME);
+                if (displayNameIndex != -1) {
+                    profile.displayName = cursor.getString(displayNameIndex);
+                }
+
+                int emailIndex = cursor.getColumnIndex(COLUMN_EMAIL);
+                if (emailIndex != -1) {
+                    profile.email = cursor.getString(emailIndex);
+                }
+
+                int securityQuestionIndex = cursor.getColumnIndex(COLUMN_SECURITY_QUESTION);
+                if (securityQuestionIndex != -1) {
+                    profile.securityQuestion = cursor.getString(securityQuestionIndex);
+                }
+
+                int themePreferenceIndex = cursor.getColumnIndex(COLUMN_THEME_PREFERENCE);
+                if (themePreferenceIndex != -1) {
+                    profile.themePreference = cursor.getString(themePreferenceIndex);
+                }
+
+                int createdDateIndex = cursor.getColumnIndex(COLUMN_CREATED_DATE);
+                if (createdDateIndex != -1) {
+                    profile.createdDate = cursor.getString(createdDateIndex);
+                }
+
+                int lastLoginIndex = cursor.getColumnIndex(COLUMN_LAST_LOGIN);
+                if (lastLoginIndex != -1) {
+                    profile.lastLogin = cursor.getString(lastLoginIndex);
+                }
 
                 cursor.close();
                 return profile;
@@ -583,5 +612,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public String themePreference;
         public String createdDate;
         public String lastLogin;
+    }
+
+    public String getUserThemePreference(long userId) {
+        UserProfile profile = getUserProfile(userId);
+        return (profile != null) ? profile.themePreference : null;
     }
 }
