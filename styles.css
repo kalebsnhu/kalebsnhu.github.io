@@ -87,6 +87,45 @@ section h3 {
   color: #7c3aed; /* accent purple */
 }
 
+/* NEW: Artifact Links */
+.artifact-link {
+  font-weight: bold;
+  color: #3b0a45; /* dark purple to match your theme */
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  background: rgba(59, 10, 69, 0.1); /* light purple background */
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin: 0.5rem 0;
+  border: 2px solid transparent;
+}
+
+.artifact-link:hover {
+  background: #3b0a45; /* dark purple background on hover */
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 10, 69, 0.3);
+  border-color: #7c3aed; /* accent purple border */
+}
+
+/* NEW: Description sections */
+.description {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #faf9fb; /* very light lavender */
+  border-left: 4px solid #7c3aed; /* accent purple border */
+  border-radius: 0 5px 5px 0;
+}
+
+.description p {
+  margin-bottom: 0.5rem;
+}
+
+.description p:last-child {
+  margin-bottom: 0;
+}
+
 /* Footer */
 footer {
   background: #3b0a45; /* dark purple */
@@ -94,4 +133,24 @@ footer {
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  main {
+    padding: 0 0.5rem;
+  }
+  
+  section {
+    padding: 1rem;
+  }
+  
+  nav {
+    margin: 1rem;
+    padding: 1rem;
+  }
 }
