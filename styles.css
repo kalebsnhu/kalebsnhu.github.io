@@ -99,6 +99,12 @@ section h3 {
   display: inline-block;
   margin: 0.5rem 0;
   border: 2px solid transparent;
+  font-size: 1.1rem; /* slightly larger text */
+}
+
+/* Center the artifact sections */
+.artifact-section {
+  text-align: center;
 }
 
 .artifact-link:hover {
