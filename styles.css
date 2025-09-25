@@ -10,12 +10,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
   background-color: #f3f0f7; /* light grayish lavender background */
-  color: #2d2d2d;
+  color: #000000;
 }
 
 /* Header */
 header {
-  background: #3b0a45; /* dark purple */
+  background: #015a8d;
   color: #fff;
   padding: 2rem 1rem;
   text-align: center;
@@ -51,12 +51,12 @@ nav li {
 
 nav a {
   text-decoration: none;
-  color: #3b0a45; /* dark purple */
+  color: #000000; /* dark purple */
   font-weight: bold;
 }
 
 nav a:hover {
-  color: #7c3aed; /* brighter purple accent */
+  color: #006fb9; /* brighter purple accent */
   text-decoration: underline;
 }
 
@@ -77,20 +77,20 @@ section {
 
 section h2 {
   margin-bottom: 1rem;
-  color: #3b0a45; /* dark purple */
+  color: #000000; /* dark purple */
   font-size: 1.5rem;
 }
 
 section h3 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: #7c3aed; /* accent purple */
+  color: #000000; /* accent purple */
 }
 
 /* NEW: Artifact Links */
 .artifact-link {
   font-weight: bold;
-  color: #3b0a45; /* dark purple to match your theme */
+  color: #006fb9; /* dark purple to match your theme */
   text-decoration: none;
   padding: 0.3rem 0.6rem;
   background: rgba(59, 10, 69, 0.1); /* light purple background */
@@ -108,11 +108,11 @@ section h3 {
 }
 
 .artifact-link:hover {
-  background: #3b0a45; /* dark purple background on hover */
+  background: #006fb9; /* dark purple background on hover */
   color: white;
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(59, 10, 69, 0.3);
-  border-color: #7c3aed; /* accent purple border */
+  border-color: #000000; /* accent purple border */
 }
 
 /* NEW: Description sections */
@@ -120,7 +120,7 @@ section h3 {
   margin-top: 1rem;
   padding: 1rem;
   background: #faf9fb; /* very light lavender */
-  border-left: 4px solid #7c3aed; /* accent purple border */
+  border-left: 4px solid #000000; /* accent purple border */
   border-radius: 0 5px 5px 0;
 }
 
@@ -134,7 +134,7 @@ section h3 {
 
 /* Footer */
 footer {
-  background: #3b0a45; /* dark purple */
+  background: #015a8d; /* dark purple */
   color: #fff;
   text-align: center;
   padding: 1rem;
