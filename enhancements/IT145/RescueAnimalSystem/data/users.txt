@@ -1,0 +1,3 @@
+test|Zv4jn/kNkADfl66XPavkg0MRllsD+LohDOF8H1mDcM4=|user|VIEW|true
+admin|GsZ/Xw/iDoQdcTtsV12bB0dMjLVIT7wMJntDY+kG6L8=|System Administrator|ADMIN|true
+user_test|Bc0eCK7yB8MiVSlxPHvSvPXdI+EsVp/+I8jJ513jO84=|user_test|VIEW|true

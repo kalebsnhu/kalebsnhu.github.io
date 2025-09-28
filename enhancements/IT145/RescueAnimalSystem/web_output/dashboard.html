@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Rescue Animal Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1e3a5f, #2c5f8c);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+            text-decoration: none;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            color: #1e3a5f;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card.total { border-left-color: #007bff; }
+        .stat-card.available { border-left-color: #28a745; }
+        .stat-card.reserved { border-left-color: #dc3545; }
+        .stat-card.training { border-left-color: #ffc107; }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card.total .stat-number { color: #007bff; }
+        .stat-card.available .stat-number { color: #28a745; }
+        .stat-card.reserved .stat-number { color: #dc3545; }
+        .stat-card.training .stat-number { color: #ffc107; }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            text-decoration: none;
+            color: #333;
+        }
+
+        .action-card:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .admin-only {
+            display: none;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #1e3a5f;
+            margin: 0;
+        }
+
+        .close {
+            color: #999;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .animals-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .animal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+
+        .animal-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .animal-item:last-child {
+            border-bottom: none;
+        }
+
+        .animal-info h4 {
+            margin: 0 0 5px 0;
+            color: #1e3a5f;
+        }
+
+        .animal-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .dashboard-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            Rescue Animal System
+        </div>
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-name" id="userName">Loading...</div>
+                <div class="user-role" id="userRole">Loading...</div>
+            </div>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Dashboard</h1>
+            <p class="dashboard-subtitle">Rescue Animal Management System</p>
+        </div>
+
+        <div id="alertContainer"></div>
+
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-number" id="totalAnimals">0</div>
+                <div class="stat-label">Total Animals</div>
+            </div>
+            <div class="stat-card available">
+                <div class="stat-number" id="availableAnimals">0</div>
+                <div class="stat-label">Available</div>
+            </div>
+            <div class="stat-card reserved">
+                <div class="stat-number" id="reservedAnimals">0</div>
+                <div class="stat-label">Reserved</div>
+            </div>
+            <div class="stat-card training">
+                <div class="stat-number" id="trainingAnimals">0</div>
+                <div class="stat-label">In Training</div>
+            </div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-card" onclick="viewAllAnimals()">
+                <div class="action-icon">🐕</div>
+                <div class="action-title">View All Animals</div>
+                <div class="action-description">Browse complete animal registry</div>
+            </div>
+
+            <div class="action-card" onclick="viewAvailableAnimals()">
+                <div class="action-icon">✅</div>
+                <div class="action-title">Available Animals</div>
+                <div class="action-description">Animals ready for service</div>
+            </div>
+
+            <div class="action-card admin-only" onclick="showAddAnimalModal()">
+                <div class="action-icon">➕</div>
+                <div class="action-title">Add Animal</div>
+                <div class="action-description">Register new rescue animal</div>
+            </div>
+
+            <div class="action-card admin-only" onclick="showManageAnimalsModal()">
+                <div class="action-icon">⚙️</div>
+                <div class="action-title">Manage Animals</div>
+                <div class="action-description">Edit or delete animals</div>
+            </div>
+
+            <div class="action-card admin-only" onclick="showReserveModal()">
+                <div class="action-icon">📋</div>
+                <div class="action-title">Make Reservation</div>
+                <div class="action-description">Reserve animal for service</div>
+            </div>
+
+            <div class="action-card admin-only" onclick="viewActivities()">
+                <div class="action-icon">📊</div>
+                <div class="action-title">Activity Log</div>
+                <div class="action-description">Monitor system activities</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Animal Modal -->
+    <div id="addAnimalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Animal</h2>
+                <span class="close" onclick="closeModal('addAnimalModal')">&times;</span>
+            </div>
+            <form id="addAnimalForm" onsubmit="handleAddAnimal(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalType">Animal Type</label>
+                        <select id="animalType" name="type" required onchange="updateAnimalFields()">
+                            <option value="">Select Type</option>
+                            <option value="dog">Dog</option>
+                            <option value="monkey">Monkey</option>
+                            <option value="cat">Cat</option>
+                            <option value="bird">Bird</option>
+                            <option value="rabbit">Rabbit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalName">Name</label>
+                        <input type="text" id="animalName" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalGender">Gender</label>
+                        <select id="animalGender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalAge">Age (years)</label>
+                        <input type="number" id="animalAge" name="age" required min="0" max="30">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalWeight">Weight</label>
+                        <input type="text" id="animalWeight" name="weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="acquisitionDate">Acquisition Date</label>
+                        <input type="date" id="acquisitionDate" name="acquisitionDate" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="acquisitionCountry">Acquisition Country</label>
+                        <input type="text" id="acquisitionCountry" name="acquisitionCountry" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inServiceCountry">Service Country</label>
+                        <input type="text" id="inServiceCountry" name="inServiceCountry" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainingStatus">Training Status</label>
+                        <select id="trainingStatus" name="trainingStatus" required>
+                            <option value="intake">Intake</option>
+                            <option value="Phase I">Phase I</option>
+                            <option value="Phase II">Phase II</option>
+                            <option value="in service">In Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reserved">Reserved</label>
+                        <select id="reserved" name="reserved">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Type-specific fields will be added here dynamically -->
+                <div id="typeSpecificFields"></div>
+
+                <div style="margin-top: 20px; text-align: right;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addAnimalModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Animal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Animals Modal -->
+    <div id="viewAnimalsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="viewAnimalsTitle">All Animals</h2>
+                <span class="close" onclick="closeModal('viewAnimalsModal')">&times;</span>
+            </div>
+            <div id="animalsListContainer" class="animals-list">
+                <div class="loading">Loading animals...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Animals Modal -->
+    <div id="manageAnimalsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Manage Animals</h2>
+                <span class="close" onclick="closeModal('manageAnimalsModal')">&times;</span>
+            </div>
+            <div id="manageAnimalsContainer" class="animals-list">
+                <div class="loading">Loading animals...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let allAnimalsData = null;
+
+        window.addEventListener('load', function() {
+            checkAuthentication();
+            loadDashboardData();
+        });
+
+        function checkAuthentication() {
+            fetch('/api/user', { credentials: 'include' })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    window.location.href = '/index.html';
+                    throw new Error('Not authenticated');
+                }
+            })
+            .then(user => {
+                currentUser = user;
+                document.getElementById('userName').textContent = user.fullName;
+                document.getElementById('userRole').textContent = user.role;
+                
+                if (user.role === 'ADMIN') {
+                    document.querySelectorAll('.admin-only').forEach(el => {
+                        el.style.display = 'block';
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Authentication check failed:', error);
+            });
+        }
+
+        function loadDashboardData() {
+            fetch('/api/animals', { credentials: 'include' })
+            .then(response => response.json())
+            .then(data => {
+                allAnimalsData = data;
+                if (data.stats) {
+                    document.getElementById('totalAnimals').textContent = data.stats.total;
+                    document.getElementById('availableAnimals').textContent = data.stats.available;
+                    document.getElementById('reservedAnimals').textContent = data.stats.reserved;
+                    document.getElementById('trainingAnimals').textContent = data.stats.training;
+                }
+            })
+            .catch(error => {
+                console.error('Failed to load dashboard data:', error);
+                showAlert('Failed to load dashboard data', 'error');
+            });
+        }
+
+        function logout() {
+            fetch('/api/logout', { method: 'POST', credentials: 'include' })
+            .then(() => {
+                window.location.href = '/index.html';
+            })
+            .catch(error => {
+                console.error('Logout failed:', error);
+                window.location.href = '/index.html';
+            });
+        }
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `<div class="alert ${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function showAddAnimalModal() {
+            document.getElementById('addAnimalModal').style.display = 'block';
+        }
+
+        function updateAnimalFields() {
+            const animalType = document.getElementById('animalType').value;
+            const container = document.getElementById('typeSpecificFields');
+            
+            container.innerHTML = '';
+            
+            if (animalType === 'dog' || animalType === 'cat' || animalType === 'rabbit') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <label for="breed">Breed</label>
+                        <input type="text" id="breed" name="breed" required>
+                    </div>
+                `;
+                
+                if (animalType === 'cat') {
+                    container.innerHTML += `
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="coatColor">Coat Color</label>
+                                <input type="text" id="coatColor" name="coatColor" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="declawed">Declawed</label>
+                                <select id="declawed" name="declawed">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                } else if (animalType === 'rabbit') {
+                    container.innerHTML += `
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="furColor">Fur Color</label>
+                                <input type="text" id="furColor" name="furColor" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="earType">Ear Type</label>
+                                <input type="text" id="earType" name="earType" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="litterTrained">Litter Trained</label>
+                            <select id="litterTrained" name="litterTrained">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                    `;
+                }
+            } else if (animalType === 'monkey') {
+                container.innerHTML = `
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="species">Species</label>
+                            <select id="species" name="species" required>
+                                <option value="">Select Species</option>
+                                <option value="capuchin">Capuchin</option>
+                                <option value="guenon">Guenon</option>
+                                <option value="macaque">Macaque</option>
+                                <option value="marmoset">Marmoset</option>
+                                <option value="squirrel monkey">Squirrel Monkey</option>
+                                <option value="tamarin">Tamarin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tailLength">Tail Length</label>
+                            <input type="text" id="tailLength" name="tailLength" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="height">Height</label>
+                            <input type="text" id="height" name="height" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bodyLength">Body Length</label>
+                            <input type="text" id="bodyLength" name="bodyLength" required>
+                        </div>
+                    </div>
+                `;
+            } else if (animalType === 'bird') {
+                container.innerHTML = `
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="species">Species</label>
+                            <select id="species" name="species" required>
+                                <option value="">Select Species</option>
+                                <option value="african grey parrot">African Grey Parrot</option>
+                                <option value="cockatiel">Cockatiel</option>
+                                <option value="macaw">Macaw</option>
+                                <option value="amazon parrot">Amazon Parrot</option>
+                                <option value="canary">Canary</option>
+                                <option value="finch">Finch</option>
+                                <option value="budgerigar">Budgerigar</option>
+                                <option value="dove">Dove</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="wingspan">Wingspan</label>
+                            <input type="text" id="wingspan" name="wingspan" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="canFly">Can Fly</label>
+                            <select id="canFly" name="canFly">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="beakType">Beak Type</label>
+                            <input type="text" id="beakType" name="beakType" required>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function handleAddAnimal(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch('/api/animals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data),
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showAlert('Animal added successfully!', 'success');
+                    closeModal('addAnimalModal');
+                    document.getElementById('addAnimalForm').reset();
+                    document.getElementById('typeSpecificFields').innerHTML = '';
+                    loadDashboardData(); // Refresh data
+                } else {
+                    showAlert(result.message || 'Failed to add animal', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Add animal error:', error);
+                showAlert('Failed to add animal. Please try again.', 'error');
+            });
+        }
+
+        function viewAllAnimals() {
+            document.getElementById('viewAnimalsTitle').textContent = 'All Animals';
+            showAnimalsInModal('all');
+        }
+
+        function viewAvailableAnimals() {
+            document.getElementById('viewAnimalsTitle').textContent = 'Available Animals';
+            showAnimalsInModal('available');
+        }
+
+        function showAnimalsInModal(filter) {
+            document.getElementById('viewAnimalsModal').style.display = 'block';
+            
+            if (!allAnimalsData) {
+                loadDashboardData();
+                return;
+            }
+
+            const container = document.getElementById('animalsListContainer');
+            container.innerHTML = '';
+
+            let animals = [];
+            
+            // Combine all animal types
+            if (allAnimalsData.dogs) animals = animals.concat(allAnimalsData.dogs.map(a => ({...a, type: 'Dog'})));
+            if (allAnimalsData.monkeys) animals = animals.concat(allAnimalsData.monkeys.map(a => ({...a, type: 'Monkey'})));
+            if (allAnimalsData.cats) animals = animals.concat(allAnimalsData.cats.map(a => ({...a, type: 'Cat'})));
+            if (allAnimalsData.birds) animals = animals.concat(allAnimalsData.birds.map(a => ({...a, type: 'Bird'})));
+            if (allAnimalsData.rabbits) animals = animals.concat(allAnimalsData.rabbits.map(a => ({...a, type: 'Rabbit'})));
+
+            // Filter animals
+            if (filter === 'available') {
+                animals = animals.filter(animal => 
+                    animal.trainingStatus === 'in service' && !animal.reserved
+                );
+            }
+
+            if (animals.length === 0) {
+                container.innerHTML = '<div class="loading">No animals found.</div>';
+                return;
+            }
+
+            animals.forEach(animal => {
+                const animalDiv = document.createElement('div');
+                animalDiv.className = 'animal-item';
+                animalDiv.innerHTML = `
+                    <div class="animal-info">
+                        <h4>${animal.name} (${animal.type})</h4>
+                        <p>Gender: ${animal.gender} | Age: ${animal.age} years | Status: ${animal.trainingStatus}</p>
+                        <p>Location: ${animal.location || 'Not set'}</p>
+                    </div>
+                `;
+                container.appendChild(animalDiv);
+            });
+        }
+
+        function showManageAnimalsModal() {
+            document.getElementById('manageAnimalsModal').style.display = 'block';
+            loadAnimalsForManagement();
+        }
+
+        function loadAnimalsForManagement() {
+            if (!allAnimalsData) {
+                loadDashboardData();
+                return;
+            }
+
+            const container = document.getElementById('manageAnimalsContainer');
+            container.innerHTML = '';
+
+            let animals = [];
+            
+            // Combine all animal types
+            if (allAnimalsData.dogs) animals = animals.concat(allAnimalsData.dogs.map(a => ({...a, type: 'Dog'})));
+            if (allAnimalsData.monkeys) animals = animals.concat(allAnimalsData.monkeys.map(a => ({...a, type: 'Monkey'})));
+            if (allAnimalsData.cats) animals = animals.concat(allAnimalsData.cats.map(a => ({...a, type: 'Cat'})));
+            if (allAnimalsData.birds) animals = animals.concat(allAnimalsData.birds.map(a => ({...a, type: 'Bird'})));
+            if (allAnimalsData.rabbits) animals = animals.concat(allAnimalsData.rabbits.map(a => ({...a, type: 'Rabbit'})));
+
+            if (animals.length === 0) {
+                container.innerHTML = '<div class="loading">No animals found.</div>';
+                return;
+            }
+
+            animals.forEach(animal => {
+                const animalDiv = document.createElement('div');
+                animalDiv.className = 'animal-item';
+                animalDiv.innerHTML = `
+                    <div class="animal-info">
+                        <h4>${animal.name} (${animal.type})</h4>
+                        <p>Gender: ${animal.gender} | Age: ${animal.age} years | Status: ${animal.trainingStatus}</p>
+                        <p>Location: ${animal.location || 'Not set'}</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-danger" onclick="deleteAnimal('${animal.name}')">Delete</button>
+                    </div>
+                `;
+                container.appendChild(animalDiv);
+            });
+        }
+
+        function deleteAnimal(animalName) {
+            if (!confirm(`Are you sure you want to delete ${animalName}? This action cannot be undone.`)) {
+                return;
+            }
+
+            fetch(`/api/animals?name=${encodeURIComponent(animalName)}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showAlert(`${animalName} deleted successfully`, 'success');
+                    loadDashboardData(); // Refresh data
+                    loadAnimalsForManagement(); // Refresh management list
+                } else {
+                    showAlert(result.message || 'Failed to delete animal', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Delete animal error:', error);
+                showAlert('Failed to delete animal. Please try again.', 'error');
+            });
+        }
+
+        function showReserveModal() {
+            alert('Reserve Animal Modal (Feature coming soon)');
+        }
+
+        function viewActivities() {
+            alert('Activity Log (Feature coming soon)');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Auto-refresh dashboard data every 30 seconds
+        setInterval(loadDashboardData, 30000);
+    </script>
+</body>
+</html>

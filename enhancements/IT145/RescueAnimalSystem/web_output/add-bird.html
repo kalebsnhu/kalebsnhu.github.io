@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Add New Bird - Rescue Animal System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #1e3a5f; min-height: 100vh; color: white; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { background: rgba(255,255,255,0.95); border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; color: #333; }
+        h1 { margin: 0; font-size: 2.5em; color: #1e3a5f; }
+        .animal-form { background: rgba(255,255,255,0.95); border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: #333; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .form-group { display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #1e3a5f; }
+        input, select { padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
+        input:focus, select:focus { outline: none; border-color: #1e3a5f; }
+        .form-actions { text-align: center; }
+        .submit-btn { background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; margin-right: 10px; }
+        .submit-btn:hover { background: #218838; }
+        .cancel-btn { background: #6c757d; color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-size: 16px; font-weight: bold; }
+        .cancel-btn:hover { background: #5a6268; }
+        .success-message { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>Add New Bird</h1>
+        </div>
+        <div class='success-message' id='successMessage'>
+            Animal data saved! Please run the Java application to sync with the system.
+        </div>
+        <form class='animal-form' onsubmit='saveBird(event)'>
+    <div class='form-grid'>
+        <div class='form-group'>
+            <label>Bird Name *</label>
+            <input type='text' name='name' required>
+        </div>
+        <div class='form-group'>
+            <label>Species *</label>
+            <select name='species' required>
+                <option value='african grey parrot'>African Grey Parrot</option>
+                <option value='cockatiel'>Cockatiel</option>
+                <option value='macaw'>Macaw</option>
+                <option value='amazon parrot'>Amazon Parrot</option>
+                <option value='canary'>Canary</option>
+                <option value='finch'>Finch</option>
+                <option value='budgerigar'>Budgerigar</option>
+                <option value='dove'>Dove</option>
+            </select>
+        </div>
+        <div class='form-group'>
+            <label>Wingspan *</label>
+            <input type='text' name='wingspan' required>
+        </div>
+        <div class='form-group'>
+            <label>Can Fly</label>
+            <select name='canFly'>
+                <option value=''>Select...</option>
+                <option value='true'>Yes</option>
+                <option value='false'>No</option>
+            </select>
+        </div>
+        <div class='form-group'>
+            <label>Beak Type *</label>
+            <input type='text' name='beakType' required>
+        </div>
+        <div class='form-group'>
+            <label>Gender *</label>
+            <select name='gender' required>
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+            </select>
+        </div>
+        <div class='form-group'>
+            <label>Age (years) *</label>
+            <input type='number' name='age' required>
+        </div>
+        <div class='form-group'>
+            <label>Weight *</label>
+            <input type='text' name='weight' required>
+        </div>
+        <div class='form-group'>
+            <label>Acquisition Date *</label>
+            <input type='date' name='acquisitionDate' required>
+        </div>
+        <div class='form-group'>
+            <label>Acquisition Country *</label>
+            <input type='text' name='acquisitionCountry' required>
+        </div>
+        <div class='form-group'>
+            <label>Training Status *</label>
+            <select name='trainingStatus' required>
+                <option value='intake'>Intake</option>
+                <option value='Phase I'>Phase I</option>
+                <option value='Phase II'>Phase II</option>
+                <option value='in service'>In Service</option>
+            </select>
+        </div>
+        <div class='form-group'>
+            <label>Reserved</label>
+            <select name='reserved'>
+                <option value=''>Select...</option>
+                <option value='false'>No</option>
+                <option value='true'>Yes</option>
+            </select>
+        </div>
+        <div class='form-group'>
+            <label>In Service Country *</label>
+            <input type='text' name='inServiceCountry' required>
+        </div>
+    </div>
+    <div class='form-actions'>
+        <button type='submit' class='submit-btn'>Add Bird</button>
+        <a href='birds.html' class='cancel-btn'>Cancel</a>
+    </div>
+</form>
+    </div>
+    <script>
+        function saveDog(event) { saveAnimal(event, 'pendingDogs'); }
+        function saveMonkey(event) { saveAnimal(event, 'pendingMonkeys'); }
+        function saveCat(event) { saveAnimal(event, 'pendingCats'); }
+        function saveBird(event) { saveAnimal(event, 'pendingBirds'); }
+        function saveRabbit(event) { saveAnimal(event, 'pendingRabbits'); }
+        
+        function saveAnimal(event, storageKey) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const animal = Object.fromEntries(formData.entries());
+            
+            let pending = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            pending.push(animal);
+            localStorage.setItem(storageKey, JSON.stringify(pending));
+            
+            document.getElementById('successMessage').style.display = 'block';
+            event.target.reset();
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "dogs": [
+    {"name": "Charlie", "breed": "German Shepherd", "reserved": false},
+    {"name": "Popcorn", "breed": "Lab", "reserved": true},
+    {"name": "Pumpkin", "breed": "Great Dane", "reserved": false}
+  ],
+  "totalAnimals": 11
+}

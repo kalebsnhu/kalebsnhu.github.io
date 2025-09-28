@@ -1,0 +1,21 @@
+Charlie|Dog|INTAKE|New dog added to system|Intake Facility|system
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Training Facility A'|Training Facility A|system
+Popcorn|Dog|INTAKE|New dog added to system|Intake Facility|system
+Popcorn|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Service Location - Downtown'|Service Location - Downtown|system
+George|Monkey|INTAKE|New monkey added to system|Intake Facility|system
+George|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Training Facility C'|Training Facility C|system
+Whiskers|Cat|INTAKE|New cat added to system|Intake Facility|system
+Luna|Cat|INTAKE|New cat added to system|Intake Facility|system
+Sunny|Bird|INTAKE|New bird added to system|Intake Facility|system
+Echo|Bird|INTAKE|New bird added to system|Intake Facility|system
+Clover|Rabbit|INTAKE|New rabbit added to system|Intake Facility|system
+Pepper|Rabbit|INTAKE|New rabbit added to system|Intake Facility|system
+System|System|USER_CREATION|Sample users created for demonstration|System|system
+Calcifer|Cat|INTAKE|New cat added to system|Intake Facility|admin
+Lottie|Cat|INTAKE|New cat added to system|Intake Facility|admin
+KiKi|Cat|INTAKE|New cat added to system|Intake Facility|admin
+Sophie|Dog|INTAKE|New dog added to system|Intake Facility|admin
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
+Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
+Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin

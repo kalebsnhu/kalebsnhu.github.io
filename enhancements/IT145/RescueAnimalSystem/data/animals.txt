@@ -1,0 +1,7 @@
+Charlie|Dog|male|1|110|2024-01-15|United States|intake|false|United States|German Shepherd
+Popcorn|Dog|male|3|55|2023-06-10|United States|in service|true|United States|Lab
+George|Monkey|male|5|75|2023-03-20|Brazil|in service|false|United States|Marmoset|3|5|8
+Calcifer|Cat|male|3|10|2022-06-10|United States|intake|false|United States|other|Black|false
+Lottie|Cat|male|3|12|2022-06-10|United States|intake|false|United States|other|Tortie|false
+KiKi|Cat|male|15|6|2024-02-20|United States|intake|false|United States|other|Gray Tortie|false
+Sophie|Dog|female|10|8|2024-05-04|United States|intake|false|United States|Pekapoo

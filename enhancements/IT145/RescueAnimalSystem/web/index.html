@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rescue Animal Management System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3a5f 0%, #2c5f8c 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #333; }
+        .login-container { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); width: 100%; max-width: 450px; backdrop-filter: blur(10px); }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo h1 { color: #1e3a5f; font-size: 2.2em; font-weight: 700; margin-bottom: 10px; }
+        .logo p { color: #666; font-size: 1.1em; }
+        .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; display: none; }
+        .alert.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alert.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #1e3a5f; font-weight: 600; }
+        .form-group input { width: 100%; padding: 14px 16px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; transition: all 0.3s ease; }
+        .form-group input:focus { outline: none; border-color: #007bff; box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #007bff, #0056b3); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #0056b3, #004085); transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .form-footer { text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e1e5e9; }
+        .btn-link { color: #007bff; text-decoration: none; font-weight: 600; padding: 8px 16px; border-radius: 6px; transition: all 0.3s ease; }
+        .btn-link:hover { background: rgba(0, 123, 255, 0.1); }
+        .demo-accounts { background: #f8f9fa; border-radius: 10px; padding: 20px; margin-top: 20px; border-left: 4px solid #007bff; }
+        .demo-accounts h4 { color: #1e3a5f; margin-bottom: 12px; }
+        .demo-accounts .account { background: white; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #e1e5e9; font-family: monospace; cursor: pointer; transition: all 0.3s ease; }
+        .demo-accounts .account:hover { background: #f8f9fa; border-color: #007bff; }
+        .register-form { display: none; }
+        .register-form.active { display: block; }
+        .login-form.hidden { display: none; }
+        .loading { display: inline-block; margin-left: 10px; }
+        .loading::after { content: ''; display: inline-block; width: 16px; height: 16px; border: 2px solid #ffffff; border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Rescue Animal System</h1>
+            <p>Management Dashboard</p>
+        </div>
+        <div id="alertContainer"></div>
+
+        <form id="loginForm" class="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary" id="loginBtn">
+                Sign In
+                <span id="loginLoading" class="loading" style="display: none;"></span>
+            </button>
+            <div class="form-footer">
+                <p>Don't have an account?</p>
+                <a href="#" class="btn-link" onclick="showRegisterForm()">Create Account</a>
+            </div>
+        </form>
+
+        <form id="registerForm" class="register-form" onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label for="regUsername">Username</label>
+                <input type="text" id="regUsername" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="regFullName">Full Name</label>
+                <input type="text" id="regFullName" name="fullName" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" name="password" required minlength="6" autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn btn-primary" id="registerBtn">
+                Create Account
+                <span id="registerLoading" class="loading" style="display: none;"></span>
+            </button>
+            <div class="form-footer">
+                <p>Already have an account?</p>
+                <a href="#" class="btn-link" onclick="showLoginForm()">Sign In</a>
+            </div>
+        </form>
+
+        <div class="demo-accounts">
+            <h4>Demo Account</h4>
+            <div class="account" onclick="quickLogin('admin', 'admin123')">Admin: admin / admin123</div>
+            <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Regular users can view animals but cannot add/delete them.</p>
+        </div>
+    </div>
+
+    <script>
+        /*
+        Function: handleLogin
+        @params:
+        event: form submit event
+        Description: Handles user login form submission
+        */
+        function handleLogin(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const username = formData.get('username');
+            const password = formData.get('password');
+
+            if (!username || !password) {
+                showAlert('Please enter both username and password', 'error');
+                return;
+            }
+
+            setLoading('login', true);
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                setLoading('login', false);
+                if (data.success) {
+                    showAlert('Login successful! Redirecting...', 'success');
+                    setTimeout(() => window.location.href = '/dashboard.html', 1000);
+                } else {
+                    showAlert(data.message || 'Invalid username or password', 'error');
+                }
+            })
+            .catch(error => {
+                setLoading('login', false);
+                showAlert('Login failed. Please check your connection and try again.', 'error');
+            });
+        }
+
+        /*
+        Function: handleRegister
+        @params:
+        event: form submit event
+        Description: Handles user registration form submission
+        */
+        function handleRegister(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const username = formData.get('username');
+            const fullName = formData.get('fullName');
+            const password = formData.get('password');
+
+            if (!username || !fullName || !password) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            setLoading('register', true);
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `username=${encodeURIComponent(username)}&fullName=${encodeURIComponent(fullName)}&password=${encodeURIComponent(password)}`,
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                setLoading('register', false);
+                if (data.success) {
+                    showAlert('Account created successfully! Please sign in.', 'success');
+                    document.getElementById('registerForm').reset();
+                    showLoginForm();
+                } else {
+                    showAlert(data.message || 'Registration failed. Username may already exist.', 'error');
+                }
+            })
+            .catch(error => {
+                setLoading('register', false);
+                showAlert('Registration failed. Please check your connection and try again.', 'error');
+            });
+        }
+
+        /*
+        Function: showLoginForm
+        @params: none
+        Description: Shows login form and hides registration form
+        */
+        function showLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            loginForm.classList.remove('hidden');
+            loginForm.style.display = 'block';
+
+            registerForm.classList.remove('active');
+            registerForm.style.display = 'none';
+
+            clearAlert();
+        }
+
+        /*
+        Function: showRegisterForm
+        @params: none
+        Description: Shows registration form and hides login form
+        */
+        function showRegisterForm() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            loginForm.classList.add('hidden');
+            loginForm.style.display = 'none';
+
+            registerForm.classList.add('active');
+            registerForm.style.display = 'block';
+
+            clearAlert();
+        }
+
+        /*
+        Function: showAlert
+        @params:
+        message: alert message text
+        type: alert type (success/error)
+        Description: Displays alert message to user
+        */
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `<div class="alert ${type}" style="display: block;">${message}</div>`;
+            if (type === 'success') {
+                setTimeout(() => clearAlert(), 3000);
+            }
+        }
+
+        /*
+        Function: clearAlert
+        @params: none
+        Description: Clears any displayed alert messages
+        */
+        function clearAlert() {
+            document.getElementById('alertContainer').innerHTML = '';
+        }
+
+        /*
+        Function: quickLogin
+        @params:
+        username: username to fill
+        password: password to fill
+        Description: Fills login form with provided credentials
+        */
+        function quickLogin(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            showLoginForm();
+        }
+
+        /*
+        Function: setLoading
+        @params:
+        type: button type (login/register)
+        loading: loading state boolean
+        Description: Shows or hides loading spinner on buttons
+        */
+        function setLoading(type, loading) {
+            const btn = document.getElementById(type + 'Btn');
+            const loadingSpan = document.getElementById(type + 'Loading');
+            btn.disabled = loading;
+            loadingSpan.style.display = loading ? 'inline-block' : 'none';
+        }
+
+        /*
+        Function: window.onload
+        @params: none
+        Description: Initializes page on load and checks authentication
+        */
+        window.addEventListener('load', function() {
+            showLoginForm();
+
+            fetch('/api/user', { credentials: 'include' })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/dashboard.html';
+                }
+            })
+            .catch(() => {});
+        });
+    </script>
+</body>
+</html>
