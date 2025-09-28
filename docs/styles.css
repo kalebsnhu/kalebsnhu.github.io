@@ -1,0 +1,551 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+    /* Light theme (default) - white background with dark blue accents */
+    color: #1a365d;
+    background: #ffffff;
+}
+
+/* Dark theme - dark gray/blue background */
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #e8eaf0;
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #1e3a5f 100%);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.nav-header {
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Light theme navigation - white background */
+.nav-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(26, 54, 93, 0.1);
+}
+
+/* Dark theme navigation - dark gray/blue */
+@media (prefers-color-scheme: dark) {
+    .nav-header {
+        background: rgba(26, 32, 44, 0.95);
+        border-bottom: 1px solid rgba(232, 234, 240, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Light theme logo - dark blue */
+.logo {
+    color: #1a365d;
+}
+
+/* Dark theme logo - light blue */
+@media (prefers-color-scheme: dark) {
+    .logo {
+        color: #81c3f7;
+    }
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Light theme nav links - dark blue */
+.nav-link {
+    color: #1a365d;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #2c5282;
+    background: rgba(44, 82, 130, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Dark theme nav links - light colors */
+@media (prefers-color-scheme: dark) {
+    .nav-link {
+        color: #e8eaf0;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        color: #81c3f7;
+        background: rgba(129, 195, 247, 0.1);
+        transform: translateY(-2px);
+    }
+}
+
+/* Category Grid for Homepage */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.category-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+/* Light theme category cards */
+.category-card {
+    background: rgba(26, 54, 93, 0.05);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+    color: #1a365d;
+}
+
+.category-card:hover {
+    background: rgba(26, 54, 93, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.category-card h3 {
+    color: #1a365d;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.category-card p {
+    color: #2d3748;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Dark theme category cards */
+@media (prefers-color-scheme: dark) {
+    .category-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(232, 234, 240, 0.1);
+        color: #e8eaf0;
+    }
+
+    .category-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .category-card h3 {
+        color: #81c3f7;
+    }
+
+    .category-card p {
+        color: #cbd5e0;
+    }
+}
+
+/* Main Content */
+.main-content {
+    margin-top: 80px;
+    padding: 2rem 0;
+}
+
+.section {
+    margin: 3rem 0;
+    padding: 2rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light theme sections - white with slight border */
+.section {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme sections - dark gray/blue with transparency */
+@media (prefers-color-scheme: dark) {
+    .section {
+        background: rgba(45, 55, 72, 0.4);
+        border: 1px solid rgba(232, 234, 240, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .section:hover {
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.section-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Light theme section titles - dark blue */
+.section-title {
+    color: #1a365d;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #1a365d, #2c5282);
+    border-radius: 2px;
+}
+
+/* Dark theme section titles - light blue */
+@media (prefers-color-scheme: dark) {
+    .section-title {
+        color: #81c3f7;
+    }
+
+    .section-title::after {
+        background: linear-gradient(90deg, #81c3f7, #4299e1);
+    }
+}
+
+.intro-content {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Artifact Styles */
+.artifact {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Light theme artifacts - dark blue accents */
+.artifact {
+    background: rgba(0, 0, 0, 0.02);
+    border-left: 4px solid #1a365d;
+}
+
+.artifact:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(10px);
+}
+
+/* Dark theme artifacts - light blue accents */
+@media (prefers-color-scheme: dark) {
+    .artifact {
+        background: rgba(255, 255, 255, 0.05);
+        border-left: 4px solid #81c3f7;
+    }
+
+    .artifact:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+.artifact-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.artifact-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Light theme artifact links - dark blue */
+.artifact-link {
+    color: #1a365d;
+}
+
+.artifact-link:hover {
+    color: #2c5282;
+    text-shadow: 0 0 10px rgba(26, 54, 93, 0.3);
+}
+
+/* Dark theme artifact links - light blue */
+@media (prefers-color-scheme: dark) {
+    .artifact-link {
+        color: #81c3f7;
+    }
+
+    .artifact-link:hover {
+        color: #4299e1;
+        text-shadow: 0 0 10px rgba(129, 195, 247, 0.5);
+    }
+}
+
+.artifact-link::after {
+    content: '↗';
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.artifact-link:hover::after {
+    opacity: 1;
+}
+
+.artifact-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.artifact-description h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.5rem 0;
+}
+
+.artifact-description h3:first-child {
+    margin-top: 0;
+}
+
+.artifact-description p {
+    margin-bottom: 0.8rem;
+}
+
+/* Light theme artifact descriptions - slightly darker text */
+.artifact-description {
+    color: #2d3748;
+    background: rgba(26, 54, 93, 0.03);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+}
+
+.artifact-description h3 {
+    color: #1a365d;
+}
+
+/* Dark theme artifact descriptions - light text */
+@media (prefers-color-scheme: dark) {
+    .artifact-description {
+        color: #cbd5e0;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(232, 234, 240, 0.1);
+    }
+
+    .artifact-description h3 {
+        color: #81c3f7;
+    }
+}
+
+/* Skills Content Styling */
+.skills-content h2 {
+    color: inherit;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.8rem 0;
+    font-weight: 600;
+}
+
+.skills-content h2:first-child {
+    margin-top: 0;
+}
+
+.skills-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* Light theme skills content */
+.skills-content h2 {
+    color: #1a365d;
+}
+
+/* Dark theme skills content */
+@media (prefers-color-scheme: dark) {
+    .skills-content h2 {
+        color: #81c3f7;
+    }
+}
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        padding: 0.5rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .main-content {
+        margin-top: 120px;
+        padding: 1rem 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .section {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .intro-content {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .artifact {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+
+    .artifact-name {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .artifact-description {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+}
+
+/* Smaller mobile devices */
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .nav-menu {
+        gap: 0.3rem;
+    }
+
+    .nav-link {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .main-content {
+        margin-top: 140px;
+    }
+
+    .section {
+        margin: 1rem 0;
+        padding: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .artifact-name {
+        font-size: 1rem;
+    }
+
+    .artifact-description {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation for sections */
+.section {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.section:nth-child(1) { animation-delay: 0.1s; }
+.section:nth-child(2) { animation-delay: 0.2s; }
+.section:nth-child(3) { animation-delay: 0.3s; }
+.section:nth-child(4) { animation-delay: 0.4s; }
+.section:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
