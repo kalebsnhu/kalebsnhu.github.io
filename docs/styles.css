@@ -618,31 +618,31 @@ body {
     margin-bottom: 0.5rem; /* Changed from margin-top to margin-bottom */
 }
 
-/* Skills Content Styling */
-.skills-content h2 {
+/* Self-Assessment Content Styling */
+.Self-Assessment-content h2 {
     color: inherit;
     font-size: 1.3rem;
     margin: 1.5rem 0 0.8rem 0;
     font-weight: 600;
 }
 
-.skills-content h2:first-child {
+.Self-Assessment-content h2:first-child {
     margin-top: 0;
 }
 
-.skills-content p {
+.Self-Assessment-content p {
     margin-bottom: 1rem;
     line-height: 1.7;
 }
 
-/* Light theme skills content */
-.skills-content h2 {
+/* Light theme Self-Assessment content */
+.Self-Assessment-content h2 {
     color: #1a365d;
 }
 
-/* Dark theme skills content */
+/* Dark theme Self-Assessment content */
 @media (prefers-color-scheme: dark) {
-    .skills-content h2 {
+    .Self-Assessment-content h2 {
         color: #81c3f7;
     }
 }

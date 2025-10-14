@@ -13,11 +13,11 @@
         <div class="nav-container">
             <div class="logo">ePortfolio - Kaleb Ward</div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">About Me</a></li>
+                <li><a href="index.html" class="nav-link">Overview</a></li>
                 <li><a href="software-engineering.html" class="nav-link active">Software Engineering</a></li>
                 <li><a href="algorithms.html" class="nav-link">Algorithms</a></li>
                 <li><a href="databases.html" class="nav-link">Databases</a></li>
-                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="skills.html" class="nav-link">Self-Assessment/Evaluation</a></li>
             </ul>
         </div>
     </nav>
@@ -48,7 +48,6 @@
                              readability and create a better overall user experience. I have created various enhancements for the application, and the enhancements 
                              have allowed for an overall better user experience and showcases the ability for client and server development and software engineering in
                              a complex inventory system.</p>
-                        
                         <h3>Enhancements:</h3>
                         <ul>
                             <li>Create a forgotten password authentication page that uses security questions to verify identity and allows the user to change their password if they have forgotten, the administrators
@@ -60,8 +59,19 @@
                                 of the mobile device to determine the theme utilized.
                             </li>
                         </ul>
+                        <h3>Are The Enhancements Completed?:</h3>
+                        <p>The enhancements that were planned for CS-360 were completed and more, the enhancements completed are more towards the design of the application
+                                the design of the application has changed in terms of better user-experience when it comes to the UI. The UI has been updated with a dark and light
+                                theme for the user to chose preferences but can also specify if they want it to follow the system's theme preference. The inventory system has also been
+                                vastly improved in terms of the productivity and effective use of the system. The inventory system has been improved in terms of being able to edit items
+                                that are currently in the system which is the quantity, name, and the date of which the item should be posted. If you chose an item to be posted in the future
+                                it will lock the item down until that date. The mobile application also has a forgotten password prompt for users that have forgotten their password and they
+                                can utilize their security question introduced during the user account creation.</p>
+                        <h3>Were There Any Issues During Enhancement Phase?</h3>
+                        <p>There were various issues that were introduced during the enhancement phase in terms of Android Studio not cooperating. The projects kept getting corrupted
+                                and graddle kept crashing which I had to keep reinstalling. The issues were related to Android Studio not properly shutting down and sometimes even overriting code
+                                which I think was related to OneDrive which is now disabled on my machine. The overall development phase of the enhancements went smooth other than the software issue.</p>
                         <hr class="section-divider">
-
                         <h3>Forgotten Password:</h3>
                         <p>The forgotten password system allows for the user to retrieve their user account and reset their password if needed utilizing the security question and answer
                             created when the user makes their account. It allows for the user to retrieve their password without having to contact the administrators of the application. It
@@ -69,11 +79,11 @@
                         <div class="image-grid">
                             <figure class="artifact-figure">
                                 <figcaption>Creating Account</figcaption>
-                                <img src="web_images/CS_360_Create_Account.png" alt="Login interface">
+                                <img src="web_images/CS_360_Create_Account.png" alt="Create Account">
                             </figure>
                             <figure class="artifact-figure">
                                 <figcaption>Forgotten Password Recovery</figcaption>
-                                <img src="web_images/CS_360_Forgotten_Password.png" alt="User management panel">
+                                <img src="web_images/CS_360_Forgotten_Password.png" alt="Forgotten Password">
                             </figure>
                         </div>
                         <p class="code-label"><strong>ForgottenPasswordFragment.java</strong></p>
@@ -115,7 +125,6 @@
     // code after
 }</code></pre>
                         <hr class="section-divider">
-
                         <h3>Application Theme Dark/Light:</h3>
                         <p>The mobile themes allows for users to determine which theme is better for them, most users utilize dark themes because it is better on your eyes under certain
                             circumstances, but the application also utilizes the mobile device's theme settings to determine which theme to use but the user can also determine which theme
