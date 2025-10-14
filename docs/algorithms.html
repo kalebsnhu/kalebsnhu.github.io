@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algorithms - ePortfolio - Kaleb Ward</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Navigation Header -->
@@ -43,13 +44,146 @@
                     </h2>
                     <div class="artifact-description">
                         <h3>Overview:</h3>
-                        <p></p>
-                        <h3>Enhancements:</h3>         
-                        <p></p> 
+                        <p>IT-145: Foundation in Application Development is a perfect project to demonstrate the overall knowledge of 
+                            algorithms and how to demonstrate algorithms within an application. It allows for an overall understanding 
+                            of how algorithms can be introduced within a database of animals with variables assigned to the animals in terms of 
+                            age, location, gender, and other related data needed to demonstrate unique characteristics of the animals. 
+                            This was originally a text-based project converted to a web-based UI and demonstrates the overall understanding of 
+                            algorithms and how to build upon an application to increase efficiency and increase user read-ability.</p>
+                        
+                        <h3>Enhancements:</h3>
+                        <ul>
+                            <li>Convert text-based layout to a web-based layout to increase user friendly UI and efficiency utilizing the application and create an overall better user experience throughout.</li>
+                            <li>Create more objects to utilize throughout the application in terms of new animals to increase the overall animal type count of the animal shelter</li>
+                            <li>User permission system to allow for administrators to give permissions to newly created user accounts and allow users to only be able to view animals instead of editing whereas administrators can do all functions/features.</li>
+                            <li>Create more utility functions to utilize throughout the application instead of relying on deprecated functions and functions that are not overall efficient in terms of operating properly. Create more efficient functions that allows for faster manipulation of the data and manipulate the data of specific variables.</li>
+                        </ul>
+
+                        <hr class="section-divider">
+
+                        <h3>User Management System</h3>
+                        <p>The user management system is based off of a 4 level system (starting at 0 for basic permissions). The administrators have full access over the system, they can create/remove animals, manipulate user permissions for created accounts to change accounts to administrators or change the overall permissions on accounts and even changing passwords if needed. The staff permission can modify animals and create reservations. The monitors permission can only view and track animal activities throughout the shelter, and the view access is for users to only view the animals the shelter has, that is the most basic permission and only allows to view animals and not track activity.</p>
+                        
+                        <p class="code-label"><strong>UserRole.java</strong></p>
+                        <pre><code class="language-java">public enum UserRole {
+    VIEW(0),      // Can only view data, cannot modify
+    MONITOR(1),   // Can view and track activities
+    STAFF(2),     // Can add/modify animals and reservations
+    ADMIN(3);     // Full access including user management
+    
+    private final int level;
+    
+    UserRole(int level) {
+        this.level = level;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+}</code></pre>
+
+                        <div class="image-grid">
+                            <figure class="artifact-figure">
+                                <figcaption>Login Interface</figcaption>
+                                <img src="web_images/IT_145_Login.png" alt="Login interface">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>User Management Panel</figcaption>
+                                <img src="web_images/IT_145_User_Management.png" alt="User management panel">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>User Editing Interface</figcaption>
+                                <img src="web_images/IT_145_User_Editing.png" alt="User editing interface">
+                            </figure>
+                        </div>
+
+                        <hr class="section-divider">
+
+                        <h3>Web-Based Application</h3>
+                        <p>The Animal Shelter application developed through IT-145 was a text based application that parsed data and utilized commands throughout the terminal to manipulate the data and parse the data as needed such as gathering animal data and changing animals throughout the database. It parses data from the database and creates animal objects utilizing the animal classes such as cats and dogs. We have changed the terminal based application into a dynamic changing web-based application. We utilize a form of web-based HTML files that change dynamically depending on the data parsed in real time. It allows for a better overall graphical interface and a better overall user friendly design instead of terminal commands, you can now visualize it better. We have also introduced new animals such as monkeys, birds, and rabbits.</p>
+                        
+                        <p class="code-label"><strong>WebApplication.java</strong></p>
+                        <pre><code class="language-java">private static void createDynamicHtmlFiles() throws IOException {
+    String indexHtml = getLoginPageHtml();
+    Files.write(Paths.get("web/index.html"), indexHtml.getBytes());
+    System.out.println("Created dynamic index.html");
+        
+    String dashboardHtml = getEnhancedDashboardHtml();
+    Files.write(Paths.get("web/dashboard.html"), dashboardHtml.getBytes());
+    System.out.println("Created enhanced dashboard.html");
+}</code></pre>
+                        <pre><code class="language-java">   private static boolean setupWebEnvironment() {
+    try {
+        System.out.println("Setting up web environment...");
+            
+        createDirectory("web");
+        createDirectory("web/css");
+        createDirectory("web/js");
+        createDirectory("web/images");
+        createDirectory("data");
+            
+        createDynamicHtmlFiles();
+            
+        System.out.println("Web environment setup complete");
+        return true;
+            
+    } catch (Exception e) {
+        System.err.println("Error setting up web environment: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}</code></pre>
+                        <div class="image-grid">
+                            <figure class="artifact-figure">
+                                <figcaption>Main Dashboard</figcaption>
+                                <img src="web_images/IT_145_Web_UI.png" alt="Web dashboard">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>Animals Management View</figcaption>
+                                <img src="web_images/IT_145_Web_UI_Animals.png" alt="Animals view">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>Create Animal Form</figcaption>
+                                <img src="web_images/IT_145_Web_UI_Create_Animal.png" alt="Create animal form">
+                            </figure>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <script>
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.innerHTML = `
+            <span class="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        `;
+        document.body.appendChild(lightbox);
+
+        document.querySelectorAll('.artifact-description img, .artifact-figure img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                document.getElementById('lightbox-img').src = img.src;
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('close-lightbox')) {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
