@@ -1,3 +1,5 @@
+Sophie|Location not set
 George|Training Facility C
+Calcifer|Location not set
 Charlie|Training Facility A
 Popcorn|Service Location - Downtown

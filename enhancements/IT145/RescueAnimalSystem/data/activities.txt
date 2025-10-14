@@ -19,3 +19,15 @@ Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to '
 Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
 Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
 Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
+Calcifer|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Location not set'|Location not set|admin
+Calcifer|Cat|UPDATE|Animal information updated|Location not set|admin
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
+Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
+Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
+Charlie|Unknown|LOCATION_UPDATE|Location updated from 'Training Facility A' to 'Training Facility A'|Training Facility A|admin
+Charlie|Dog|UPDATE|Animal information updated|Training Facility A|admin
+Sophie|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Location not set'|Location not set|admin
+Sophie|Dog|UPDATE|Animal information updated|Location not set|admin
+Sophie|Unknown|LOCATION_UPDATE|Location updated from 'Location not set' to 'Location not set'|Location not set|admin
+Sophie|Dog|UPDATE|Animal information updated|Location not set|admin

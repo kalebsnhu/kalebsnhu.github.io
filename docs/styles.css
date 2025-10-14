@@ -549,3 +549,39 @@ html {
         transform: translateY(0);
     }
 }
+
+/* Video inside intro-content */
+.intro-content video {
+    width: 100%;
+    max-width: 800px;
+    max-height: 450px; /* Fixed height for preview */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    margin-top: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: contain; /* Keeps video aspect ratio without stretching */
+}
+
+.intro-content video:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Dark theme video */
+@media (prefers-color-scheme: dark) {
+    .intro-content video {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    
+    .intro-content video:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Mobile - even smaller preview */
+@media (max-width: 768px) {
+    .intro-content video {
+        max-height: 300px;
+    }
+}
