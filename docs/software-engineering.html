@@ -41,9 +41,123 @@
                     </h2>
                     <div class="artifact-description">
                         <h3>Overview:</h3>
-                        <p></p>
-                        <h3>Enhancements:</h3>         
-                        <p></p> 
+                        <p>CS-360 Mobile Architect and Programming is an application that can easily demonstrate the knowledge in terms of software engineering 
+                            and design, it shows the ability to create an inventory system that utilizes both client and server-side development during its life 
+                            cycle. The inventory system was originally created as a basic application to create inventory items to showcase variable manipulation
+                             between client and server-side database items. The overall functionality is basic and needs to be expanded upon in terms of user 
+                             readability and create a better overall user experience. I have created various enhancements for the application, and the enhancements 
+                             have allowed for an overall better user experience and showcases the ability for client and server development and software engineering in
+                             a complex inventory system.</p>
+                        
+                        <h3>Enhancements:</h3>
+                        <ul>
+                            <li>Create a forgotten password authentication page that uses security questions to verify identity and allows the user to change their password if they have forgotten, the administrators
+                                of the application can also change user's passwords which is needed if the user does not know their security answer.</li>
+                            <li>Create a system so the user can change their current password or username if needed which allows for a better user experience overall and customizability.</li>
+                            <li>The ability for administrators to modify current item's variables such as quantity, date of release, and the name of the item, it allows for a more dynamic
+                                system and allows for a better way of editing items instead of deleting and recreating.</li>
+                            <li>Themes throughout the application such as dark/light themes and the themes are either manually dark or light or the ability to go off of the setting
+                                of the mobile device to determine the theme utilized.
+                            </li>
+                        </ul>
+                        <hr class="section-divider">
+
+                        <h3>Forgotten Password:</h3>
+                        <p>The forgotten password system allows for the user to retrieve their user account and reset their password if needed utilizing the security question and answer
+                            created when the user makes their account. It allows for the user to retrieve their password without having to contact the administrators of the application. It
+                            allows for a better user experience and allow for the users to change their password as needed.</p>
+                        <div class="image-grid">
+                            <figure class="artifact-figure">
+                                <figcaption>Creating Account</figcaption>
+                                <img src="web_images/CS_360_Create_Account.png" alt="Login interface">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>Forgotten Password Recovery</figcaption>
+                                <img src="web_images/CS_360_Forgotten_Password.png" alt="User management panel">
+                            </figure>
+                        </div>
+                        <p class="code-label"><strong>ForgottenPasswordFragment.java</strong></p>
+                        <pre><code class="language-java">private void getSecurityQuestion() {
+    clearErrors();
+    String username = getText(etUsername);
+
+    if (TextUtils.isEmpty(username)) {
+        usernameLayout.setError("Please enter your username");
+        etUsername.requestFocus();
+        return;
+    }
+
+    String securityQuestion = databaseHelper.getSecurityQuestion(username);
+
+    if (securityQuestion == null || securityQuestion.isEmpty()) {
+        usernameLayout.setError("Username not found or no security question set");
+        etUsername.requestFocus();
+        Toast.makeText(getContext(), "Username not found or no security question was set for this account",
+            Toast.LENGTH_LONG).show();
+        return;
+    }
+
+    currentUsername = username;
+    questionRetrieved = true;
+    tvSecurityQuestion.setText("Security Question: " + securityQuestion);
+    showRecoveryStep();
+    etSecurityAnswer.requestFocus();
+}</code></pre>
+                        <p class="code-label"><strong>CreateAccountFragment.java</strong></p>
+                        <pre><code class="language-java">public class CreateAccountFragment extends Fragment {
+    // code before
+    private final String[] securityQuestions = {
+            "Select a security question...",
+            "What was the name of your first pet?",
+            "What city were you born in?",
+            "What was your mother's maiden name?",
+    };
+    // code after
+}</code></pre>
+                        <hr class="section-divider">
+
+                        <h3>Application Theme Dark/Light:</h3>
+                        <p>The mobile themes allows for users to determine which theme is better for them, most users utilize dark themes because it is better on your eyes under certain
+                            circumstances, but the application also utilizes the mobile device's theme settings to determine which theme to use but the user can also determine which theme
+                            manually depending on their circumstances or needs.</p>
+                        <div class="image-grid">
+                            <figure class="artifact-figure">
+                                <figcaption>Light Theme</figcaption>
+                                <img src="web_images/CS_360_Light_Theme.png" alt="Login interface">
+                            </figure>
+                            <figure class="artifact-figure">
+                                <figcaption>Dark Theme</figcaption>
+                                <img src="web_images/CS_360_Dark_Theme.png" alt="User management panel">
+                            </figure>
+                        </div>
+                        <p class="code-label"><strong>ThemeManager.java</strong></p>
+                        <pre><code class="language-java">public class ThemeManager {
+    // code before
+    public static void applyTheme(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String theme = preferences.getString(THEME_PREF, THEME_SYSTEM);
+
+        switch (theme) {
+            case THEME_DARK:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case THEME_LIGHT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case THEME_SYSTEM:
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
+    }
+
+    public static String getCurrentTheme(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(THEME_PREF, THEME_SYSTEM);
+    }
+    // code after
+}
+</code></pre>
                     </div>
                 </div>
             </section>
@@ -52,5 +166,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <script>
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.innerHTML = `
+            <span class="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        `;
+        document.body.appendChild(lightbox);
+
+        document.querySelectorAll('.artifact-description img, .artifact-figure img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                document.getElementById('lightbox-img').src = img.src;
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('close-lightbox')) {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
